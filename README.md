@@ -126,8 +126,8 @@ Lumora allows you to save any URL from the internet in seconds, automatically ex
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/yourusername/lumora.git
-cd lumora
+git clone https://github.com/Preet8808/Lumora.git
+cd Lumora
 npm install
 ```
 
