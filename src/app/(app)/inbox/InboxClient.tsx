@@ -15,15 +15,27 @@ import {
   CheckSquare,
   Square,
   Sparkles,
+  Star,
+  Play,
+  Archive,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface InboxClientProps {
   initialItems: ItemWithDetails[];
   availableTags: Array<{ id: string; name: string }>;
+  emptyTitle?: string;
+  emptyDescription?: string;
+  emptyIcon?: "inbox" | "star" | "play" | "archive";
 }
 
-export function InboxClient({ initialItems, availableTags }: InboxClientProps) {
+export function InboxClient({
+  initialItems,
+  availableTags,
+  emptyTitle,
+  emptyDescription,
+  emptyIcon = "inbox",
+}: InboxClientProps) {
   const [items, setItems] = useState<ItemWithDetails[]>(initialItems);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -282,9 +294,20 @@ export function InboxClient({ initialItems, availableTags }: InboxClientProps) {
       {/* Items List / Grid */}
       {filteredItems.length === 0 ? (
         <EmptyState
-          icon={Inbox}
-          title="Inbox Zero"
-          description="You've processed all your saved items! Paste a new link with the 'N' key or discover items from your archives."
+          icon={
+            emptyIcon === "star"
+              ? Star
+              : emptyIcon === "play"
+              ? Play
+              : emptyIcon === "archive"
+              ? Archive
+              : Inbox
+          }
+          title={emptyTitle || "Inbox Zero"}
+          description={
+            emptyDescription ||
+            "You've processed all your saved items! Paste a new link with the 'N' key or discover items from your archives."
+          }
         />
       ) : viewMode === "grid" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

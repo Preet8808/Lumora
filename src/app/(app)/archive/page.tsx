@@ -3,7 +3,6 @@ import { getItems } from "@/lib/services/items.service";
 import { getUserTags } from "@/lib/services/tags.service";
 import { InboxClient } from "../inbox/InboxClient";
 import { Archive } from "lucide-react";
-import { EmptyState } from "@/components/ui/EmptyState";
 
 export default async function ArchivePage() {
   const session = await requireAuth();
@@ -25,15 +24,13 @@ export default async function ArchivePage() {
         </div>
       </div>
 
-      {items.length === 0 ? (
-        <EmptyState
-          icon={Archive}
-          title="Archive is empty"
-          description="Archived items are kept safe here without cluttering your inbox or continue sections."
-        />
-      ) : (
-        <InboxClient initialItems={items} availableTags={tags} />
-      )}
+      <InboxClient
+        initialItems={items}
+        availableTags={tags}
+        emptyTitle="Archive is empty"
+        emptyDescription="Archived items are kept safe here without cluttering your inbox or continue sections."
+        emptyIcon="archive"
+      />
     </div>
   );
 }

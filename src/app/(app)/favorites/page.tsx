@@ -3,7 +3,6 @@ import { getItems } from "@/lib/services/items.service";
 import { getUserTags } from "@/lib/services/tags.service";
 import { InboxClient } from "../inbox/InboxClient";
 import { Star } from "lucide-react";
-import { EmptyState } from "@/components/ui/EmptyState";
 
 export default async function FavoritesPage() {
   const session = await requireAuth();
@@ -25,15 +24,13 @@ export default async function FavoritesPage() {
         </div>
       </div>
 
-      {items.length === 0 ? (
-        <EmptyState
-          icon={Star}
-          title="No favorites yet"
-          description="Click the star icon on any card to pin your favorite items here for fast access."
-        />
-      ) : (
-        <InboxClient initialItems={items} availableTags={tags} />
-      )}
+      <InboxClient
+        initialItems={items}
+        availableTags={tags}
+        emptyTitle="No favorites yet"
+        emptyDescription="Click the star icon on any card to pin your favorite items here for fast access."
+        emptyIcon="star"
+      />
     </div>
   );
 }

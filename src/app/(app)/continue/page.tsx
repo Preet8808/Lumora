@@ -3,7 +3,6 @@ import { getItems } from "@/lib/services/items.service";
 import { InboxClient } from "../inbox/InboxClient";
 import { getUserTags } from "@/lib/services/tags.service";
 import { Play } from "lucide-react";
-import { EmptyState } from "@/components/ui/EmptyState";
 
 export default async function ContinuePage() {
   const session = await requireAuth();
@@ -32,15 +31,13 @@ export default async function ContinuePage() {
         </div>
       </div>
 
-      {continueItems.length === 0 ? (
-        <EmptyState
-          icon={Play}
-          title="No items in progress"
-          description="When you start reading or watching content, items with progress will appear here for instant resumption."
-        />
-      ) : (
-        <InboxClient initialItems={continueItems} availableTags={tags} />
-      )}
+      <InboxClient
+        initialItems={continueItems}
+        availableTags={tags}
+        emptyTitle="No items in progress"
+        emptyDescription="When you start reading or watching content, items with progress will appear here for instant resumption."
+        emptyIcon="play"
+      />
     </div>
   );
 }
