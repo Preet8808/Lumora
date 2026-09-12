@@ -3,6 +3,13 @@
 > **A personal second-brain inbox for the internet.**  
 > *Save anything. Organize automatically. Find it when you need it.*
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-savewithlumora.vercel.app-6366f1?style=for-the-badge&logo=vercel&logoColor=white)](https://savewithlumora.vercel.app)
+[![Database](https://img.shields.io/badge/Database-Neon%20Postgres-00e599?style=for-the-badge&logo=postgresql&logoColor=white)](https://neon.tech)
+[![Next.js 16](https://img.shields.io/badge/Framework-Next.js%2016-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
+
+🌐 **Live Application:** [**https://savewithlumora.vercel.app**](https://savewithlumora.vercel.app)  
+*Try it instantly without setup! Sign up for free or launch the 1-click seeded demo workspace directly from the login screen.*
+
 ![Lumora Banner](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&auto=format&fit=crop&q=80)
 
 Lumora solves the universal problem of digital hoarding and tab overload. When discovering valuable YouTube deep-dives, GitHub repositories, system design articles, Reddit engineering threads, or documentation, users constantly lose them in browser tabs, bookmarks, or disconnected note apps.
@@ -187,21 +194,32 @@ The test suite validates:
 
 ## 🚢 Deployment
 
-### Deploying to Vercel + Neon / Supabase
-1. Create a database on [Neon](https://neon.tech) or [Supabase](https://supabase.com).
-2. Copy the connection string (e.g. `postgresql://user:pass@ep-xyz.neon.tech/neondb?sslmode=require`).
-3. Deploy to Vercel:
+### 🟢 Live Production Instance
+The application is deployed and accessible globally:
+* **Live Website:** [**https://savewithlumora.vercel.app**](https://savewithlumora.vercel.app)
+* **Frontend / Serverless Runtime:** [Vercel](https://vercel.com) (Next.js 16 App Router)
+* **Production Database:** [Neon PostgreSQL](https://neon.tech) (Serverless with built-in PgBouncer connection pooling)
+* **Instant Demo Workspaces (Clickable on Login Screen):**
+  * `demo@lumora.app` | Password: `password123` (Alex Chen — Pre-seeded library)
+  * `alice@lumora.app` | Password: `password123` (Alice Vance — Isolation testing)
+
+### Deploying Your Own Instance (Vercel + Neon)
+1. Create a database on [Neon](https://neon.tech).
+2. Copy your pooled connection string (`postgresql://username:password@ep-xyz-pooler.../neondb?sslmode=require`).
+3. Push schema to your database:
+   ```bash
+   $env:DATABASE_URL="your_neon_connection_string"
+   npx drizzle-kit push
+   npm run db:seed  # (Optional: seeds sample bookmarks and demo users)
+   ```
+4. Deploy to Vercel:
    - Push repository to GitHub.
    - Import project into Vercel.
    - Configure Environment Variables:
-     - `DATABASE_URL`: Your Neon/Supabase connection string.
-     - `AUTH_SECRET`: A secure 32+ character random string.
-     - `NEXT_PUBLIC_APP_URL`: Your Vercel deployment domain.
-4. Run migrations/seed:
-   ```bash
-   npx drizzle-kit push
-   npm run db:seed
-   ```
+     - `DATABASE_URL`: Your Neon connection string.
+     - `AUTH_SECRET`: A secure 32+ character random string (`node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`).
+     - `NEXT_PUBLIC_APP_URL`: Your Vercel domain (`https://savewithlumora.vercel.app`).
+   - Click **Deploy**.
 
 ---
 
